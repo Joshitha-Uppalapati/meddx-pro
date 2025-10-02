@@ -10,3 +10,9 @@ run-ui:
 run-all:
 	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000 & \
 	streamlit run src/meddx/serve/ui_app.py
+
+adv-train:
+	PYTHONPATH=src python3 -m meddx.train_adv
+
+adv-eval:
+	PYTHONPATH=src python3 -m meddx.evaluate_cal
