@@ -1,6 +1,5 @@
 test:
 	PYTHONPATH=src pytest -q
-	pytest -q
 
 run-api:
 	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000
@@ -17,10 +16,4 @@ train:
 
 eval:
 	PYTHONPATH=src python3 -m meddx.evaluate
-
-explain:
-	PYTHONPATH=src python3 -m meddx.explain
-
-fairness:
-	PYTHONPATH=src python3 -m meddx.fairness
 
