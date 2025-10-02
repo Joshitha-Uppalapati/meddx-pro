@@ -24,3 +24,4 @@ package:
 cli:
     PYTHONPATH=src python3 -m meddx.cli
 
+
