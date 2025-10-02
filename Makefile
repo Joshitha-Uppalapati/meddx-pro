@@ -1,10 +1,14 @@
-.PHONY: format lint test run-api run-ui
+test:
+	pytest -q
 
 run-api:
-\tPYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000
+	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000
 
 run-ui:
-\tstreamlit run src/meddx/serve/ui_app.py
+	streamlit run src/meddx/serve/ui_app.py
 
-test:
-\tPYTHONPATH=src pytest -q
+train:
+	PYTHONPATH=src python3 -m meddx.train
+
+eval:
+	PYTHONPATH=src python3 -m meddx.evaluate
