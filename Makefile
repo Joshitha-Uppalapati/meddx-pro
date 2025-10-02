@@ -1,19 +1,26 @@
 test:
-	PYTHONPATH=src pytest -q
+    PYTHONPATH=src pytest -q
 
 run-api:
-	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000
+    PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000
 
 run-ui:
-	streamlit run src/meddx/serve/ui_app.py
+    streamlit run src/meddx/serve/ui_app.py
 
 run-all:
-	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000 & \
-	streamlit run src/meddx/serve/ui_app.py
+    PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000 & \
+    streamlit run src/meddx/serve/ui_app.py
 
 train:
-	PYTHONPATH=src python3 -m meddx.train
+    PYTHONPATH=src python3 -m meddx.train
 
 eval:
-	PYTHONPATH=src python3 -m meddx.evaluate
+    PYTHONPATH=src python3 -m meddx.evaluate
+
+package:
+    python3 -m build
+    twine check dist/*
+
+cli:
+    PYTHONPATH=src python3 -m meddx.cli
 
