@@ -7,8 +7,6 @@ run-api:
 run-ui:
 	streamlit run src/meddx/serve/ui_app.py
 
-train:
-	PYTHONPATH=src python3 -m meddx.train
-
-eval:
-	PYTHONPATH=src python3 -m meddx.evaluate
+run-all:
+	PYTHONPATH=src uvicorn meddx.serve.api:app --reload --port 8000 & \
+	streamlit run src/meddx/serve/ui_app.py

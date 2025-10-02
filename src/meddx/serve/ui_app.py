@@ -1,9 +1,24 @@
+import json
+import requests
+import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="MedDx-Pro", page_icon="🫀", layout="centered")
-st.title("MedDx-Pro (Demo)")
-st.caption("Educational demo • Not for clinical use")
+st.set_page_config(page_title="MedDx-Pro", layout="centered")
+st.title("MedDx-Pro")
+st.caption("Demo app • Not for clinical use")
 
-age = st.number_input("Age", min_value=1, max_value=120, value=50)
+API_URL = "http://127.0.0.1:8000/predict"
+df = pd.read_csv("data/processed/val.csv")
+X = df.drop(columns=["target"])
+idx = st.number_input("Row index from validation set", min_value=0, max_value=len(X)-1, value=0, step=1)
+row = X.iloc[int(idx)].to_dict()
+
+st.subheader("Feature vector")
+st.json(json.loads(pd.Series(row).to_json()))
+
 if st.button("Predict"):
-    st.success(f"Dummy risk probability: 0.42 (age={age})")
+    r = requests.post(API_URL, json=row, timeout=10)
+    if r.ok:
+        st.success(f"Risk probability: {r.json()['prob']:.3f}")
+    else:
+        st.error(f"API error: {r.status_code}")
