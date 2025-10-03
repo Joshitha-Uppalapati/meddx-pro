@@ -1,6 +1,0 @@
-title: MedDx Pro
-emoji: 🩺
-sdk: streamlit
-sdk_version: 1.38.0
-app_file: src/meddx/serve/ui_app.py
-pinned: false
